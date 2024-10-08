@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Adoption Website</title>
+    <!-- font awesome cdn -->
+    <script src="https://kit.fontawesome.com/9a9645e8cc.js" crossorigin="anonymous"></script>
+    <!-- google font cdn -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <!-- tailwind and daisy ui cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#B68C5A',
+                        'secondary': '#da373d',
+                    },
+                    fontFamily: {
+                        Lato: ['Lato', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="font-Lato">
+    <header class="mx-4 mt-2 md:container md:mx-auto">
+        <!-- navbar -->
+        <div class="navbar px-0">
+            <div class="navbar-start gap-2">
+                <img src="./images/logo.webp" alt="">
+                <a href="#" class="font-black text-2xl md:text-3xl">
+                    Peddy
+                </a>
+            </div>
+            <div class="navbar-center hidden md:flex">
+                <ul class="menu menu-horizontal px-1 font-medium">
+                    <li><a>Home</a></li>
+                    <li><a>Shop</a></li>
+                    <li><a>Contact</a></li>
+                </ul>
+            </div>
+            <div class="navbar-end">
+                <a href="" class="btn btn-circle bg-white">
+                    <i class="fa-regular fa-user fa-lg"></i>
+                </a>
+                <div class="dropdown dropdown-bottom dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-circle md:hidden bg-white ml-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow font-medium">
+                        <li><a>Home</a></li>
+                        <li><a>Shop</a></li>
+                        <li><a>Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- banner -->
+        <div class="mt-8 md:mt-12">
+            <div>
+                <div class="text-center space-y-6">
+                    <h1 class="font-bold text-xl md:text-2xl text-[#131313]/60 w-4/5 lg:w-3/5 mx-auto">Bringing Families
+                        Together ❤️‍🔥<br>
+                        <span class="font-black text-3xl md:text-5xl lg:text-7xl text-black">
+                            Your Path to Adoption Starts Here
+                        </span>
+                    </h1>
+                    <p class="w-11/12 lg:w-3/5 mx-auto">
+                        It is a long established fact that a reader will be distracted by the readable content of a page
+                        when looking at its layout. The point of using Lorem Ipsum is that it has a.
+                    </p>
+                </div>
+                <div class="mt-8 text-center">
+                    <button onclick="scrollToSection('adopt')" class="btn bg-[#0E7A81] text-white md:text-lg">View
+                        More</button>
+                    <!-- <a href="#adopt" class="btn bg-[#0E7A81] text-white md:text-lg">View More</a> -->
+                </div>
+            </div>
+            <div class="w-11/12 mx-auto mt-12 flex justify-center items-center">
+                <img src="./images/pet.webp" alt="">
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Adopt Friend section -->
+        <section id="adopt" class="mt-12 lg:mt-24 md:container md:mx-auto mx-4">
+            <!-- Adopt section title -->
+            <div class="text-center space-y-6">
+                <h3 class="font-black text-3xl md:text-4xl">Adopt Your Best Friend</h3>
+                <p class="w-11/12 md:w-1/2 mx-auto text-[#131313]/70">
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a.
+                </p>
+            </div>
+            <!-- category buttons from API -->
+            <div id="btn-container" class="flex items-center justify-between mt-12"></div>
+            <!-- best deal and sort btn -->
+            <div class="flex items-center justify-between mt-8">
+                <h3 class="text-xl md:text-2xl font-black">Best Deal For you</h3>
+                <button id="sort-btn" onclick="sortByPrice()" class="btn bg-[#0E7A81] text-white md:text-lg">Sort by
+                    Price</button>
+            </div>
+        </section>
+
+        <!-- grid cards container -->
+        <section class="mx-4 md:container md:mx-auto mt-8 flex flex-col lg:flex-row gap-6">
+            <div id="cards-container" class="lg:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div class="lg:w-1/4">
+                <div id="images-container" class="grid grid-cols-2 gap-6 card p-5 border shadow-xl min-h-40"></div>
+            </div>
+        </section>
+
+        <!-- adopt btn modal -->
+        <dialog id="adoptModal" class="modal modal-middle">
+            <div class="modal-box text-center">
+                <div><i class="fa-solid fa-handshake-simple text-4xl" style="color: #0e7a81;"></i></div>
+                <h3 class="text-5xl font-bold">Congrats</h3>
+                <p class="py-4 text-lg font-medium">Adoption Process is Start For your Pet in</p>
+                <span id="countdown" class="font-bold text-center text-6xl">3
+                </span>
+            </div>
+        </dialog>
+
+        <!-- details btn modal -->
+        <dialog id="detailsModal" class="modal modal-middle">
+            <div class="modal-box">
+                <div id="modal-container"></div>
+                <div class="modal-action w-full justify-center">
+                    <form class="w-full" method="dialog">
+                        <button class="btn btn-block font-bold text-lg text-[#0E7A81] bg-[#0E7A81]/10">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+
+    </main>
+
+    <!-- footer done -->
+    <footer class="bg-neutral text-neutral-content mt-8 px-6 md:px-0 py-12 md:py-24">
+        <section class="md:container mx-auto footer justify-between">
+            <nav>
+                <h6 class="footer-title text-2xl md:text-3xl flex items-center gap-2">
+                    <img src="./images/logo.webp" alt="">
+                    Peddy
+                </h6>
+                <p class="font-medium">Location: av. Washington 165, NY CA 54003</p>
+                <p class="font-medium">Phone: <a class="link link-hover">+31 85 964 47 25</a></p>
+                <p class="font-medium">Email: <a class="link link-hover">userinfo@gmail.com</a></p>
+                <p class="font-medium">Openings hours: 9.00 AM - 5.00 PM</p>
+                <div class="flex justify-center items-center gap-6 text-4xl">
+                    <a href="">
+                        <i class="fa-brands fa-facebook" style="color: #006aff;"></i>
+                    </a>
+                    <a href="">
+                        <i class="fa-brands fa-x-twitter" style="color: #ffffff;"></i>
+                    </a>
+                    <a href="">
+                        <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
+                    </a>
+                    <a href="">
+                        <i class="fa-brands fa-instagram" style="color: #aa465a;"></i>
+                    </a>
+                </div>
+            </nav>
+            <nav>
+                <h6 class="footer-title font-bold text-lg">Useful Links</h6>
+                <a class="link link-hover font-medium">Home</a>
+                <a class="link link-hover font-medium">About us</a>
+                <a class="link link-hover font-medium">Animals</a>
+                <a class="link link-hover font-medium">Foundation</a>
+                <a class="link link-hover font-medium">Contact</a>
+            </nav>
+            <nav>
+                <h6 class="footer-title font-bold text-lg mb-4">Drop a Message</h6>
+                <div class="flex justify-center items-center gap-4 flex-col w-80">
+                    <input type="text" placeholder="Enter your email" class="input w-full bg-[#FFFFFF]/5" />
+                    <button
+                        class="btn btn-block border-none bg-[#0E7A81] font-bold text-white text-lg">Subscribe</button>
+                </div>
+            </nav>
+        </section>
+    </footer>
+
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
